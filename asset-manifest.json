@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/teampotdaily/static/css/main.ae0ae061.css",
+    "main.js": "/teampotdaily/static/js/main.af3698c0.js",
+    "static/js/787.e9cb2d00.chunk.js": "/teampotdaily/static/js/787.e9cb2d00.chunk.js",
+    "static/media/teapot6inf.gif": "/teampotdaily/static/media/teapot6inf.01be9c86c0d33523740d.gif",
+    "static/media/teapot5inf.gif": "/teampotdaily/static/media/teapot5inf.d54c5c5b3b280e90c010.gif",
+    "static/media/teapot4inf.gif": "/teampotdaily/static/media/teapot4inf.fc1bfabd69cb63241d73.gif",
+    "static/media/teapot3inf.gif": "/teampotdaily/static/media/teapot3inf.5ad1c332f17992c95936.gif",
+    "static/media/BackGroundBase.jpg": "/teampotdaily/static/media/BackGroundBase.e52c0687c0f64e046aec.jpg",
+    "static/media/teapot2inf.gif": "/teampotdaily/static/media/teapot2inf.5068de3bbb136b56e2c9.gif",
+    "static/media/teapot1inf.gif": "/teampotdaily/static/media/teapot1inf.c6567ff336a12a4114df.gif",
+    "static/media/LogoTeamPot.png": "/teampotdaily/static/media/LogoTeamPot.f6bc373d2550527c7a7d.png",
+    "static/media/teapot.gif": "/teampotdaily/static/media/teapot.11a3d9c4148663e502e1.gif",
+    "index.html": "/teampotdaily/index.html",
+    "main.ae0ae061.css.map": "/teampotdaily/static/css/main.ae0ae061.css.map",
+    "main.af3698c0.js.map": "/teampotdaily/static/js/main.af3698c0.js.map",
+    "787.e9cb2d00.chunk.js.map": "/teampotdaily/static/js/787.e9cb2d00.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ae0ae061.css",
+    "static/js/main.af3698c0.js"
+  ]
+}
