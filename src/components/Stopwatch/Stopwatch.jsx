@@ -15,16 +15,17 @@ export default function Stopwatch() {
     teamAsistent,
     cont,
     pause,
+    pauseFlag,
     handleSpinClick,
     updateTimeLimitStep,
     secondsTotal,
     minutesTotal,
     startTotal,
     finish,
-    spinnerOn
+    spinnerOn,
+    setPauseFlag
   } = useAppContext();
 
-  const [pauseFlag, setPauseFlag] = useState(false)
 
   const timeLimitStepFunction = (minutes, seconds, timeLimit) => {
     const timeLimitSec = timeLimit * 60
@@ -61,13 +62,15 @@ export default function Stopwatch() {
       <TeapotGif />
       {teamAsistent.length > 1 &&
         <>
-          <div style={{ fontSize: '80px', color: "white" }}>
-            <span>{winner}</span>
-          </div>
-          <div style={{ fontSize: '70px' }}>
-            Time <span>{minutes}</span>:<span>{seconds}</span>
-          </div>
-          <DailyListperson />
+          {winner && <>
+            <div style={{ fontSize: '80px', color: "white" }}>
+              <span>{winner}</span>
+            </div>
+            <div style={{ fontSize: '70px' }}>
+              Time <span>{minutes}</span>:<span>{seconds}</span>
+            </div>
+            <DailyListperson />
+          </>}
           <h2>{"Total Daily Time: " + minutesTotal + ":" + secondsTotal}</h2>
           <div>
             {spinnData.length > 1 ?

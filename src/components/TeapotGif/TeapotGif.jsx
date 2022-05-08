@@ -12,7 +12,7 @@ import teapot6inf from '../../images/teapot6inf.gif'
 
 export default function TeapotGif() {
 
-    const { timeLimitStep,winner,teamAsistent } = useAppContext();
+    const { timeLimitStep, winner, teamAsistent } = useAppContext();
     const [imgSrc, setImgSrc] = useState(teapot)
 
     const teapotTimeLimit = {
@@ -25,12 +25,15 @@ export default function TeapotGif() {
     }
     useEffect(() => {
         winner ? setImgSrc(teapotTimeLimit[timeLimitStep]) : setImgSrc(teapot)
-    }, [timeLimitStep,winner])
+    }, [timeLimitStep, winner])
 
     return (
         <div>
-{          teamAsistent.length > 1?  <img src={imgSrc} alt="teapot" style={{ width: "60%" }} />:
-            <img src={teapot} alt="teapot" style={{ width: "90%" }} />}
+            {teamAsistent.length > 1 ? <img src={imgSrc} alt="teapot" style={{ width: "60%" }} /> :
+                <>
+                <img src={teapot} alt="teapot" style={{ width: "90%" }} />
+                <h2>Add your team members name, set the time limit and press "Set Daily" to let the meeting begin</h2>
+                </>}
         </div>
     )
 }

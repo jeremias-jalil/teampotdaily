@@ -22,7 +22,8 @@ const marks = [
 
 export default function MultilineTextFields() {
   const [value, setValue] = React.useState('');
-  const { timeLimit, cont, updateTimeLimit, updateTeamAsistent, resetAll, spinnerOn } = useAppContext()
+  const { timeLimit, cont, pauseFlag,
+    updateTimeLimit, updateTeamAsistent, resetAll, spinnerOn } = useAppContext()
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -35,7 +36,7 @@ export default function MultilineTextFields() {
 
   return (
     <>
-      <h1 style={{fontSize:"3rem"}}>{"Your team"}</h1>
+      <h1 style={{ fontSize: "3rem" }}>{"Your team"}</h1>
 
       <TextField
         multiline
@@ -66,14 +67,14 @@ export default function MultilineTextFields() {
         <Button
           variant="contained"
           onClick={() => updateTeamAsistent(value)}
-          disabled={spinnerOn}
+          disabled={spinnerOn || pauseFlag}
         >
           Set daily
         </Button> :
         <Button
           variant="contained"
           onClick={resetAll}
-          disabled={spinnerOn}
+          disabled={spinnerOn || pauseFlag}
         >
           Reset
         </Button>}

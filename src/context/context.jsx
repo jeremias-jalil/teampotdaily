@@ -13,6 +13,24 @@ const backgroundColorTimeLimit = {
     6: "#ff0000"
 }
 
+const colorGalery = [
+    "#4B3827",
+    "#826B59",
+    "#ABA08A",
+    "#653310",
+    "#895710",
+    "#BC9C63",
+    "#973C16",
+    "#DF7400",
+    "#DDCA54",
+    "#3C4F18",
+    "#5C8C28",
+    "#B8D094",
+    "#4C6174",
+    "#8193A1",
+    "#A3ACBA"
+]
+
 export function AppContextProvider({ children }) {
     const [teamMembers, setTeamMembers] = useState([])
     const [teamAsistent, setTeamAsistent] = useState([])
@@ -26,6 +44,7 @@ export function AppContextProvider({ children }) {
     const [timeLimitStep, setTmeLimitStep] = useState(1);
     const [results, setlResults] = useState(false)
     const [spinnerOn, setSpinnerOn] = useState(false)
+    const [pauseFlag, setPauseFlag] = useState(false)
 
 
     const {
@@ -54,10 +73,10 @@ export function AppContextProvider({ children }) {
         pause()
         resetTotal()
         pauseTotal()
-        const list = data.split('\n')
+        const list = data.split('\n').filter((e)=>e!="")
         const formatDataSpinn = list.map(e => {
-            var randomColor = Math.floor(Math.random() * 16777215).toString(16);
-            return { option: e, style: { backgroundColor: "#" + randomColor } }
+            var randomColor = colorGalery[Math.floor(Math.random() * 15)]
+            return { option: e, style: { backgroundColor: randomColor } }
         })
         setSpinnData(formatDataSpinn)
         setTeamAsistent(list)
@@ -152,6 +171,7 @@ export function AppContextProvider({ children }) {
         minutesTotal,
         results,
         spinnerOn,
+        pauseFlag,
         updateTeamMembers,
         updateTeamAsistent,
         updateDailyList,
@@ -170,7 +190,8 @@ export function AppContextProvider({ children }) {
         resetAll,
         setlResults,
         finish,
-        setSpinnerOn
+        setSpinnerOn,
+        setPauseFlag
     }
 
     return (
