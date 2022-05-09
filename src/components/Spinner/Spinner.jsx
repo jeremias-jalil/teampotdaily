@@ -30,6 +30,7 @@ export default function Spinner() {
                         radiusLineWidth={1}
                         perpendicularText={true}
                         textDistance={80}
+                        spinDuration={spinnData.length === 1?0.0:0.3}
                     />
                 </> :
                 <img src={LogoTeamPot} style={{ width: "100%" }} alt="logo" />

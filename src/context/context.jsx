@@ -8,13 +8,13 @@ const backgroundColorTimeLimit = {
     1: "#000000",
     2: "#570000",
     3: "#8d0000",
-    4: "#bd0000",
-    5: "#e60000",
+    4: "#bd000057",
+    5: "#e60000a4",
     6: "#ff0000"
 }
 
 const colorGalery = [
-    "#4B3827",
+    "#4b382",
     "#826B59",
     "#ABA08A",
     "#653310",
@@ -62,7 +62,7 @@ export function AppContextProvider({ children }) {
         start: startTotal,
         pause: pauseTotal,
         reset: resetTotal,
-      } = useStopwatch({ autoStart: false });
+    } = useStopwatch({ autoStart: false });
 
     const updateTeamMembers = (list) => {
         setTeamMembers(list)
@@ -73,7 +73,7 @@ export function AppContextProvider({ children }) {
         pause()
         resetTotal()
         pauseTotal()
-        const list = data.split('\n').filter((e)=>e!="")
+        const list = data.split('\n').filter((e) => e !== "")
         const formatDataSpinn = list.map(e => {
             var randomColor = colorGalery[Math.floor(Math.random() * 15)]
             return { option: e, style: { backgroundColor: randomColor } }
@@ -108,7 +108,7 @@ export function AppContextProvider({ children }) {
         if (cont) {
 
             const user = newSpinnData.splice(prizeNumber, 1)
-            updateDailyList([...dailyList, { name: user[0].option, minutes: minutes, seconds: seconds,timeLimitStep: timeLimitStep}])
+            updateDailyList([...dailyList, { name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }])
         }
         const newPrizeNumber = Math.floor(Math.random() * newSpinnData.length)
         setPrizeNumber(newPrizeNumber)
@@ -119,26 +119,27 @@ export function AppContextProvider({ children }) {
 
     const updateTimeLimitStep = (value) => {
         setTmeLimitStep(value)
-        document.body.style.backgroundColor=backgroundColorTimeLimit[value]
-    }
+        document.body.style.backgroundColor = backgroundColorTimeLimit[value]
+        value>3? document.body.style.backgroundBlendMode = "darken":document.body.style.backgroundBlendMode = "lighten"
+       }
 
     const getBackgroundColor = () => {
         return backgroundColorTimeLimit[timeLimitStep]
     }
 
-    const finish = ()=>{
+    const finish = () => {
         pause()
         pauseTotal()
         const newSpinnData = [...spinnData]
         const user = newSpinnData.splice(prizeNumber, 1)
-        updateDailyList([...dailyList, { name: user[0].option, minutes: minutes, seconds: seconds,timeLimitStep: timeLimitStep}])
+        updateDailyList([...dailyList, { name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }])
         reset()
         pause()
         setWinner("")
         setlResults(true)
     }
 
-    const resetAll = ()=>{
+    const resetAll = () => {
         setCont(0)
         setSpinnData([])
         setTeamAsistent([])

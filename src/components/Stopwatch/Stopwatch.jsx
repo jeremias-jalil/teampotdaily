@@ -3,6 +3,7 @@ import { useState } from 'react'
 import Button from '@mui/material/Button';
 import DailyListperson from '../DailyListPerson/DailyListperson'
 import TeapotGif from '../TeapotGif/TeapotGif';
+import GenericFunctions from '../../utils/GenericFunction.ts';
 
 export default function Stopwatch() {
   const {
@@ -34,8 +35,8 @@ export default function Stopwatch() {
     if (timeSec === timeLimitSec * 0.5) return updateTimeLimitStep(2)
     if (timeSec === timeLimitSec * 0.7) return updateTimeLimitStep(3)
     if (timeSec === timeLimitSec) return updateTimeLimitStep(4)
-    if (timeSec === timeLimitSec * 1.5) return updateTimeLimitStep(5)
-    if (timeSec === timeLimitSec * 2) return updateTimeLimitStep(6)
+    if (timeSec === timeLimitSec + 30) return updateTimeLimitStep(5)
+    if (timeSec === timeLimitSec + 60) return updateTimeLimitStep(6)
   }
 
   timeLimitStepFunction(minutes, seconds, timeLimit)
@@ -67,11 +68,11 @@ export default function Stopwatch() {
               <span>{winner}</span>
             </div>
             <div style={{ fontSize: '70px' }}>
-              Time <span>{minutes}</span>:<span>{seconds}</span>
+              Time <span>{GenericFunctions.timeFormat(minutes)}</span>:<span>{GenericFunctions.timeFormat(seconds)}</span>
             </div>
-            <DailyListperson />
           </>}
-          <h2>{"Total Daily Time: " + minutesTotal + ":" + secondsTotal}</h2>
+            <DailyListperson />
+          <h2>{"Total Daily Time: " + GenericFunctions.timeFormat(minutesTotal) + ":" + GenericFunctions.timeFormat(secondsTotal)}</h2>
           <div>
             {spinnData.length > 1 ?
               <Button variant="contained" onClick={handleNext} disabled={spinnerOn || pauseFlag}>{cont ? "Next" : "Start"} </Button>

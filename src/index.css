@@ -9,7 +9,7 @@ body {
   background-repeat: no-repeat; 
   background-size: cover;
   background-blend-mode: lighten;
-  overflow: hidden;
+
 }
 
 *::-webkit-scrollbar {

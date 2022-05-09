@@ -12,7 +12,7 @@ import BackGroundBase from './images/BackGroundBase.jpg'
 function App() {
 
   const BoxCont = styled(Box)(() => ({
-    height: "100vh",
+    minHeight: "100vh",
     display: "flex",
     alignItems: "center",
     alignContent: "center",
@@ -67,17 +67,17 @@ function App() {
     <>
       <BoxCont sx={{ flexGrow: 1 }} id="boxCont">
         <Grid container spacing={2}>
-          <Grid item xs={4}>
+          <Grid item lg={4} sm={12} md={12}>
             <Item>
               <InputPerson />
             </Item>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item lg={4} sm={12} md={6}>
             <Item>
               <Stopwatch />
             </Item>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item lg={4} sm={12} md={6}>
             <Item>
               <Spinner />
             </Item>
