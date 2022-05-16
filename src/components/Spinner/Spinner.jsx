@@ -4,7 +4,7 @@ import LogoTeamPot from '../../images/LogoTeamPot.png'
 
 export default function Spinner() {
 
-    const { results,spinnData, prizeNumber, mustSpin, teamAsistent, start, reset, updateMustSpin, updateWinner, updateTimeLimitStep } = useAppContext()
+    const { winner, results, spinnData, prizeNumber, mustSpin, teamAsistent, start, reset, updateMustSpin, updateWinner, updateTimeLimitStep } = useAppContext()
 
     const handleWinner = () => {
         updateTimeLimitStep(1)
@@ -18,7 +18,7 @@ export default function Spinner() {
         <>
             {teamAsistent.length > 1 && !results ?
                 <>
-                    <img src={LogoTeamPot} style={{ width: "40%" }} alt="logo"/>
+                    <img src={LogoTeamPot} style={{ width: "40%" }} alt="logo" />
                     <Wheel
                         mustStartSpinning={mustSpin}
                         prizeNumber={prizeNumber}
@@ -30,7 +30,7 @@ export default function Spinner() {
                         radiusLineWidth={1}
                         perpendicularText={true}
                         textDistance={80}
-                        spinDuration={spinnData.length === 1?0.0:0.3}
+                        spinDuration={spinnData.length === 1 ? 0.0 : 0.3}
                     />
                 </> :
                 <img src={LogoTeamPot} style={{ width: "100%" }} alt="logo" />

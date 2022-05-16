@@ -1,35 +1,8 @@
-import { useState, createContext, useContext, } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
-
+import { backgroundColorTimeLimit, colorGalery } from "../utils/constants";
 
 const appContext = createContext()
-
-const backgroundColorTimeLimit = {
-    1: "#000000",
-    2: "#570000",
-    3: "#8d0000",
-    4: "#bd000057",
-    5: "#e60000a4",
-    6: "#ff0000"
-}
-
-const colorGalery = [
-    "#4b382",
-    "#826B59",
-    "#ABA08A",
-    "#653310",
-    "#895710",
-    "#BC9C63",
-    "#973C16",
-    "#DF7400",
-    "#DDCA54",
-    "#3C4F18",
-    "#5C8C28",
-    "#B8D094",
-    "#4C6174",
-    "#8193A1",
-    "#A3ACBA"
-]
 
 export function AppContextProvider({ children }) {
     const [teamMembers, setTeamMembers] = useState([])
@@ -45,7 +18,12 @@ export function AppContextProvider({ children }) {
     const [results, setlResults] = useState(false)
     const [spinnerOn, setSpinnerOn] = useState(false)
     const [pauseFlag, setPauseFlag] = useState(false)
+    const [voice, setVoice] = useState({})
 
+
+    useEffect(() => {
+        setVoice(speechSynthesis.getVoices().find(e => e.lang === "es-ES"))
+    }, [])
 
     const {
         seconds,
@@ -88,6 +66,13 @@ export function AppContextProvider({ children }) {
     }
 
     const updateWinner = (name) => {
+        let mensaje = new SpeechSynthesisUtterance();
+        mensaje.voice = voice;
+        mensaje.volume = 1;
+        mensaje.rate = 1;
+        mensaje.text = name;
+        mensaje.pitch = 1;
+        speechSynthesis.speak(mensaje)
         setSpinnerOn(false)
         setWinner(name)
     }
@@ -120,8 +105,8 @@ export function AppContextProvider({ children }) {
     const updateTimeLimitStep = (value) => {
         setTmeLimitStep(value)
         document.body.style.backgroundColor = backgroundColorTimeLimit[value]
-        value>3? document.body.style.backgroundBlendMode = "darken":document.body.style.backgroundBlendMode = "lighten"
-       }
+        value > 3 ? document.body.style.backgroundBlendMode = "darken" : document.body.style.backgroundBlendMode = "lighten"
+    }
 
     const getBackgroundColor = () => {
         return backgroundColorTimeLimit[timeLimitStep]

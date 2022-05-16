@@ -1,29 +1,32 @@
-import React, { useEffect, useState } from 'react'
-import { useAppContext } from '../../context/context'
-
+import Box from '@mui/material/Box';
+import { styled } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+import { useAppContext } from '../../context/context';
+import { iconTimeLimit, colorTimeLimitReference } from "../../utils/constants";
+import { timeFormat } from '../../utils/genericFunction.ts';
+import Chip from '@mui/material/Chip';
 
 export default function DailyListperson() {
   const { dailyList } = useAppContext();
-  const [list, setList] = useState("")
+  const [list, setList] = useState([])
 
-  const colorTimeLimit={
-    1:"🟢",
-    2:"🟢",
-    3:"🟡",
-    4:"🟠",
-    5:"🟠",
-    6:"🔴",
-  }
+  const DailyListpersonCont = styled(Box)(() => ({
+    marginLeft: "5%",
+    marginRight: "5%",
+    div:{
+      marginLeft: "5px",
+    }
+  }))
 
   useEffect(() => {
-    const auxList = dailyList?.map((e) => [colorTimeLimit[e.timeLimitStep],e.name, " ", e.minutes, ":", e.seconds, " / "].join(''))
-    setList(auxList.join(''))
+    const auxlist = dailyList?.map((e) => <Chip icon={iconTimeLimit[e.timeLimitStep]} label={e.name + " " + timeFormat(e.minutes) + ":" + timeFormat(e.seconds)} color={colorTimeLimitReference[e.timeLimitStep]} size='small'/>)
+    setList(auxlist)
   }, [dailyList])
 
 
   return (
-    <div>
-      <h4>{list}</h4>
-    </div>
+    <DailyListpersonCont>
+      {list.map(e => e)}
+    </DailyListpersonCont>
   )
 }
