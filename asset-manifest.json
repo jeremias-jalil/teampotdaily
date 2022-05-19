@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/teampotdaily/static/css/main.c0e27111.css",
-    "main.js": "/teampotdaily/static/js/main.a2748d9d.js",
+    "main.js": "/teampotdaily/static/js/main.b050c160.js",
     "static/js/787.e9cb2d00.chunk.js": "/teampotdaily/static/js/787.e9cb2d00.chunk.js",
     "static/media/teapot6inf.gif": "/teampotdaily/static/media/teapot6inf.33e88c32d6ccf54fed8c.gif",
     "static/media/teapot5inf.gif": "/teampotdaily/static/media/teapot5inf.cd82953715c5147ac136.gif",
@@ -14,11 +14,11 @@
     "static/media/teapot.gif": "/teampotdaily/static/media/teapot.ae838a5e7c7d4e035559.gif",
     "index.html": "/teampotdaily/index.html",
     "main.c0e27111.css.map": "/teampotdaily/static/css/main.c0e27111.css.map",
-    "main.a2748d9d.js.map": "/teampotdaily/static/js/main.a2748d9d.js.map",
+    "main.b050c160.js.map": "/teampotdaily/static/js/main.b050c160.js.map",
     "787.e9cb2d00.chunk.js.map": "/teampotdaily/static/js/787.e9cb2d00.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c0e27111.css",
-    "static/js/main.a2748d9d.js"
+    "static/js/main.b050c160.js"
   ]
 }
