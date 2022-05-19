@@ -75,6 +75,7 @@ export function AppContextProvider({ children }) {
         speechSynthesis.speak(mensaje)
         setSpinnerOn(false)
         setWinner(name)
+        updateTimeLimitStep(1)
     }
 
     const updateTimeLimit = (time) => {

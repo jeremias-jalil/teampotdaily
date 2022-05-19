@@ -14,7 +14,7 @@ export default function DailyListperson() {
     marginLeft: "5%",
     marginRight: "5%",
     div:{
-      marginLeft: "5px",
+      margin: "2.5px",
     }
   }))
 
