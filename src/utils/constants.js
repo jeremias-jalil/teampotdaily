@@ -11,7 +11,6 @@ import teapot4inf from '../images/teapot4inf.gif'
 import teapot5inf from '../images/teapot5inf.gif'
 import teapot6inf from '../images/teapot6inf.gif'
 
-
 export const setTimeMarks = [
     {
         value: 0,

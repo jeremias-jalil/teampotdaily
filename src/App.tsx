@@ -1,38 +1,41 @@
-import Grid from '@mui/material/Grid';
-import { useEffect } from 'react';
-import './App.css';
-import InputPerson from './components/InputPerson/InputPerson';
-import Spinner from './components/Spinner/Spinner';
-import Stopwatch from './components/Stopwatch/Stopwatch';
-import BackGroundBase from './images/BackGroundBase.jpg';
-import { BoxCont, Item } from "./style/Mui-Style";
+import Grid from "@mui/material/Grid";
+import { useEffect } from "react";
+import "./App.css";
+import About from "./components/About";
+import DailyConfig from "./components/DailyConfig";
+import DailySelector from "./components/DailySelector";
+import DailyCommand from "./components/DailyCommand";
+import BackGroundBase from "./images/BackGroundBase.jpg";
+import { BoxCont, Item, AboutCont } from "./style/Mui-Style";
 
 function App() {
-
   useEffect(() => {
     document.body.style.backgroundImage = `url(${BackGroundBase})`;
-  }, [])
+  }, []);
 
   return (
     <>
       <BoxCont sx={{ flexGrow: 1 }} id="boxCont">
-        <Grid container spacing={2}>
-          <Grid item lg={4} sm={12} md={12}>
+        <Grid container spacing={2} className="gridContainer">
+          <Grid item lg={4} sm={12} md={12} xs={12} className="gridItem">
             <Item>
-              <InputPerson />
+              <DailyConfig />
             </Item>
           </Grid>
-          <Grid item lg={4} sm={12} md={6}>
+          <Grid item lg={4} sm={12} md={6} xs={12}>
             <Item>
-              <Stopwatch />
+              <DailyCommand />
             </Item>
           </Grid>
-          <Grid item lg={4} sm={12} md={6}>
+          <Grid item lg={4} sm={12} md={6} xs={12}>
             <Item>
-              <Spinner />
+              <DailySelector />
             </Item>
           </Grid>
         </Grid>
+        <AboutCont>
+          <About />
+        </AboutCont>
       </BoxCont>
     </>
   );

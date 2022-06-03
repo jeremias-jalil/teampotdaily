@@ -17,13 +17,9 @@ export function AppContextProvider({ children }) {
     const [timeLimitStep, setTmeLimitStep] = useState(1);
     const [results, setlResults] = useState(false)
     const [spinnerOn, setSpinnerOn] = useState(false)
-    const [pauseFlag, setPauseFlag] = useState(false)
     const [voice, setVoice] = useState({})
-
-
-    useEffect(() => {
-        setVoice(speechSynthesis.getVoices().find(e => e.lang === "es-ES"))
-    }, [])
+    const [loser, setLoser] = useState({})
+    const [selectList, setSelectList] = useState([]);
 
     const {
         seconds,
@@ -33,6 +29,10 @@ export function AppContextProvider({ children }) {
         pause,
         reset,
     } = useStopwatch({ autoStart: false });
+
+    useEffect(() => {
+        setVoice(speechSynthesis.getVoices().find(e => e.lang === "es-ES"))
+    }, [])
 
     const {
         seconds: secondsTotal,
@@ -47,16 +47,21 @@ export function AppContextProvider({ children }) {
     }
 
     const updateTeamAsistent = (data) => {
-        reset()
-        pause()
         resetTotal()
         pauseTotal()
         const list = data.split('\n').filter((e) => e !== "")
+        let randomColor
         const formatDataSpinn = list.map(e => {
-            var randomColor = colorGalery[Math.floor(Math.random() * 15)]
+            const randomColorNumber = Math.floor(Math.random() * (colorGalery.length - 1))
+            let newRandomColor = colorGalery[randomColorNumber]
+            while (newRandomColor === randomColor) {
+                newRandomColor = colorGalery[randomColorNumber + 1]
+            }
+            randomColor = newRandomColor
             return { option: e, style: { backgroundColor: randomColor } }
         })
         setSpinnData(formatDataSpinn)
+        setSelectList(formatDataSpinn)
         setTeamAsistent(list)
         localStorage.setItem("teampot", data)
     }
@@ -66,6 +71,7 @@ export function AppContextProvider({ children }) {
     }
 
     const updateWinner = (name) => {
+        reset(undefined, true)
         let mensaje = new SpeechSynthesisUtterance();
         mensaje.voice = voice;
         mensaje.volume = 1;
@@ -73,9 +79,14 @@ export function AppContextProvider({ children }) {
         mensaje.text = name;
         mensaje.pitch = 1;
         speechSynthesis.speak(mensaje)
-        setSpinnerOn(false)
+        const newSelectList = [...spinnData]
+        newSelectList.splice(prizeNumber, 1)
+        setSelectList(newSelectList)
         setWinner(name)
         updateTimeLimitStep(1)
+        setSpinnerOn(false)
+        setMustSpin(false)
+
     }
 
     const updateTimeLimit = (time) => {
@@ -86,17 +97,15 @@ export function AppContextProvider({ children }) {
         setMustSpin(value)
     }
 
-
-    const handleSpinClick = () => {
+    const handleSpinClick = (winnerNumber) => {
         setSpinnerOn(true)
         pause()
         const newSpinnData = [...spinnData]
         if (cont) {
-
             const user = newSpinnData.splice(prizeNumber, 1)
-            updateDailyList([...dailyList, { name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }])
+            updateDailyList([{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList])
         }
-        const newPrizeNumber = Math.floor(Math.random() * newSpinnData.length)
+        const newPrizeNumber = winnerNumber ?? Math.floor(Math.random() * newSpinnData.length)
         setPrizeNumber(newPrizeNumber)
         setMustSpin(true)
         setSpinnData(newSpinnData)
@@ -113,12 +122,23 @@ export function AppContextProvider({ children }) {
         return backgroundColorTimeLimit[timeLimitStep]
     }
 
+    const addNewMember = (name) => {
+        var randomColor = colorGalery[Math.floor(Math.random() * 15)]
+        setTeamAsistent([...teamAsistent, name])
+        setSpinnData([...spinnData, { option: name, style: { backgroundColor: randomColor } }])
+        setSelectList([...selectList, { option: name, style: { backgroundColor: randomColor } }])
+    }
+
+
     const finish = () => {
         pause()
         pauseTotal()
         const newSpinnData = [...spinnData]
         const user = newSpinnData.splice(prizeNumber, 1)
-        updateDailyList([...dailyList, { name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }])
+        const newDailyList = [{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList]
+        const newLoser = newDailyList.sort((a, b) => (b.seconds + b.minutes * 60) - (a.seconds + a.minutes * 60))
+        updateDailyList(newLoser)
+        setLoser(newLoser[0])
         reset()
         pause()
         setWinner("")
@@ -138,6 +158,7 @@ export function AppContextProvider({ children }) {
         setMustSpin(false)
         setWinner("")
         setlResults(false)
+        setLoser({})
     }
 
     const providerData = {
@@ -158,12 +179,14 @@ export function AppContextProvider({ children }) {
         minutesTotal,
         results,
         spinnerOn,
-        pauseFlag,
+        loser,
+        selectList,
         updateTeamMembers,
         updateTeamAsistent,
         updateDailyList,
         updateWinner,
         updateMustSpin,
+        addNewMember,
         start,
         pause,
         reset,
@@ -178,7 +201,6 @@ export function AppContextProvider({ children }) {
         setlResults,
         finish,
         setSpinnerOn,
-        setPauseFlag
     }
 
     return (

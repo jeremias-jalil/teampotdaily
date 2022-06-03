@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  
 }
 
 .App-logo {
@@ -12,6 +11,13 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+@media (max-width: 900px) {
+  .gridContainer {
+    flex-direction: column-reverse !important;
+  }
+
 }
 
 .App-header {
