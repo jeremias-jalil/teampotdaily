@@ -17,14 +17,26 @@ export default function CommandButton() {
         handleSpinClick()
         if (!cont) startTotal()
     }
+    const handleSkip = () => {
+        handleSpinClick(true)
+    }
+
     return (
         <Box>
             {spinnData.length > 1 ?
-                <Button variant="contained"
-                    onClick={handleNext}
-                    disabled={spinnerOn || (!isRunning && cont !== 0)}>
-                    {cont ? "Next" : "Start"}
-                </Button>
+                <>
+                    <Button variant="contained"
+                        onClick={handleNext}
+                        disabled={spinnerOn || (!isRunning && cont !== 0)}>
+                        {cont ? "Next" : "Start"}
+                    </Button>
+                    {winner && <Button
+                        variant="contained"
+                        onClick={handleSkip}
+                        disabled={spinnerOn || (!isRunning && cont !== 0)}>
+                        Skip
+                    </Button>}
+                </>
                 :
                 winner &&
                 <Button
@@ -34,13 +46,15 @@ export default function CommandButton() {
                     Finish
                 </Button>
             }
-            {winner
-                && <Button
+            {winner &&
+                <Button
                     variant="contained"
                     onClick={!isRunning ? handleStart : handlePause}
                     disabled={spinnerOn}>
                     {!isRunning ? "Continue" : "Pause"}
-                </Button>}
-        </Box>
+                </Button>
+
+            }
+        </Box >
     )
 }

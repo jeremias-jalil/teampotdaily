@@ -1,8 +1,6 @@
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../context/context';
-import { getTextColor } from "../../../utils/genericFunction";
 
 export default function ImputMembers({ teamMembers, setTeamMembers }) {
     const [row, setRow] = useState(window.innerHeight / 80);
@@ -33,14 +31,10 @@ export default function ImputMembers({ teamMembers, setTeamMembers }) {
                 value={teamMembers}
                 onChange={handleChange}
                 variant="filled"
-                style={{ width: "80%" }}
+                style={{ width: "100%" }}
                 disabled={cont !== 0}
+                helperText={getTotalTeamMembers()}
             />
-            <Typography
-                variant='h6'
-                style={{ color: getTextColor(cont >= 1) }}>
-                {getTotalTeamMembers()}
-            </Typography>
         </>
 
     )

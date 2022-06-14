@@ -41,7 +41,8 @@ export const BoxCont = styled(Box)(() => ({
 
   button: {
     background: "rgba(0, 0, 0, 0.466)",
-    marginLeft: "10px",
+    marginLeft:"0.5rem",
+    marginRight:"0.5rem",
     color: "white"
   },
 
@@ -121,10 +122,37 @@ export const DailyListpersonCont = styled(Box)(() => ({
 }))
 
 export const SpinnerContainer = styled(Box)(() => ({
-  '& .bhdLno':{
-    width:'clamp(40vh, 25vw, 500px)',
-    height:'clamp(40vh, 25vw, 500px)',
+  '& .bhdLno': {
+    width: 'clamp(40vh, 25vw, 500px)',
+    height: 'clamp(40vh, 25vw, 500px)',
   }
 
 }))
 
+export const ImputNewMemberContainer = styled(Box)(() => ({
+  width: "100%",
+  display: "flex",
+
+}))
+
+export const FacilitatorModeContainer = styled(Box)(() => ({
+  width: "95%",
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "center",
+  alignContent: "center",
+  justifyContent: "space-around",
+  gap: "10px",
+  color: "white",
+ }))
+
+export const DailyConfigContainer = styled(Box)(() => ({
+  padding: "2rem",
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  alignContent: "center",
+  justifyContent: "center",
+  gap:"0.5rem"
+
+}))

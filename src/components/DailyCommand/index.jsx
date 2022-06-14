@@ -1,5 +1,5 @@
 import { useAppContext } from '../../context/context';
-import { timeLimitStepFunction } from '../../utils/genericFunction';
+import { timeLimitStepFunction } from '../../utils/genericFunction.js';
 import CommandButton from './CommandButton';
 import DailyListperson from './DailyListPerson';
 import TeapotGif from './TeapotGif';

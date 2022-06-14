@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
-import { backgroundColorTimeLimit, colorGalery } from "../utils/constants";
+import { backgroundColorTimeLimit, colorGalery, facilitatorModeValues } from "../utils/constants";
 
 const appContext = createContext()
 
@@ -20,6 +20,7 @@ export function AppContextProvider({ children }) {
     const [voice, setVoice] = useState({})
     const [loser, setLoser] = useState({})
     const [selectList, setSelectList] = useState([]);
+    const [facilitatorMode, setMacilitatorMode] = useState(facilitatorModeValues.hotest);
 
     const {
         seconds,
@@ -97,13 +98,15 @@ export function AppContextProvider({ children }) {
         setMustSpin(value)
     }
 
-    const handleSpinClick = (winnerNumber) => {
+    const handleSpinClick = (skip, winnerNumber) => {
         setSpinnerOn(true)
         pause()
         const newSpinnData = [...spinnData]
         if (cont) {
             const user = newSpinnData.splice(prizeNumber, 1)
-            updateDailyList([{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList])
+            if (!skip) {
+                updateDailyList([{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList])
+            }
         }
         const newPrizeNumber = winnerNumber ?? Math.floor(Math.random() * newSpinnData.length)
         setPrizeNumber(newPrizeNumber)
@@ -136,9 +139,24 @@ export function AppContextProvider({ children }) {
         const newSpinnData = [...spinnData]
         const user = newSpinnData.splice(prizeNumber, 1)
         const newDailyList = [{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList]
-        const newLoser = newDailyList.sort((a, b) => (b.seconds + b.minutes * 60) - (a.seconds + a.minutes * 60))
-        updateDailyList(newLoser)
-        setLoser(newLoser[0])
+        let newLoser = {}
+        switch (facilitatorMode) {
+            case facilitatorModeValues.hotest:
+                newLoser = newDailyList.sort((a, b) => (b.seconds + b.minutes * 60) - (a.seconds + a.minutes * 60))[0]
+                break;
+            case facilitatorModeValues.random:
+
+                newLoser = [...newDailyList].splice(Math.floor(Math.random() * newDailyList.length), 1)[0]
+                break;
+            case facilitatorModeValues.noSelect:
+                newLoser = {}
+                break;
+            default:
+                newLoser = {}
+                break;
+        }
+        updateDailyList(newDailyList.sort((a, b) => (b.seconds + b.minutes * 60) - (a.seconds + a.minutes * 60)))
+        setLoser(newLoser)
         reset()
         pause()
         setWinner("")
@@ -181,6 +199,7 @@ export function AppContextProvider({ children }) {
         spinnerOn,
         loser,
         selectList,
+        facilitatorMode,
         updateTeamMembers,
         updateTeamAsistent,
         updateDailyList,
@@ -201,6 +220,7 @@ export function AppContextProvider({ children }) {
         setlResults,
         finish,
         setSpinnerOn,
+        setMacilitatorMode
     }
 
     return (

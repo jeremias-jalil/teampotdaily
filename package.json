@@ -2,7 +2,7 @@
   "name": "dailytymer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://jeremias-jalil.github.io/teampotdaily/",
+  "homepage": "https://teampotdaily.click/",
   "dependencies": {
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",

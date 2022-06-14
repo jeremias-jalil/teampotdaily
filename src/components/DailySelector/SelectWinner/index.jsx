@@ -12,7 +12,7 @@ export default function SelectWinner({ setNewWinner, newWinner }) {
 
 
     const handleNewWinner = (event) => {
-        handleSpinClick(event.target.value)
+        handleSpinClick(false, event.target.value)
         setNewWinner(event.target.value);
     };
     return (

@@ -16,6 +16,7 @@ export const timeLimitStepFunction = (
   if (timeSec === timeLimitSec) return updateTimeLimitStep(4);
   if (timeSec === timeLimitSec + 30) return updateTimeLimitStep(5);
   if (timeSec === timeLimitSec + 60) return updateTimeLimitStep(6);
+  if (timeSec === timeLimitSec + 120) return updateTimeLimitStep(7);
 };
 
 export const getTextColor = (condition) => {

@@ -73,7 +73,7 @@ export default function About() {
         open={open}
       >
         <BootstrapDialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Abaut TeamPot Daily
+          About TeamPot Daily
         </BootstrapDialogTitle>
         <DialogContent dividers>
           <Typography gutterBottom align='justify' variant='h6'>
@@ -89,7 +89,14 @@ export default function About() {
             <b> Version:</b>: 0.1
           </Typography>
           <Typography gutterBottom>
-            <a href="https://github.com/jeremias-jalil/teampotdaily" target="_blank" rel="noreferrer">Link GitLab repository</a>
+            <b>Team</b>: "Contactabilidad - Santander Tecnología"
+          </Typography>
+          <Typography gutterBottom>
+            <a href="https://gitlab.ar.bsch/citas/teampot-daily/teampot-daily" target="_blank" rel="noreferrer">Link GitLab repository</a>
+            </Typography>
+            <Typography gutterBottom>
+            <a href="https://santander-tecno-ar.slack.com/archives/C03KYAJ5AFK" target="_blank" rel="noreferrer">Slack</a>
+
           </Typography>
         </DialogContent>
       </BootstrapDialog>

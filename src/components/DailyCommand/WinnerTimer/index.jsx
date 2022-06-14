@@ -15,7 +15,7 @@ export default function WinnerTimer() {
             </>}
             {loser.name &&
                 <Box>
-                    <Typography variant='h6'>Must present in the next daily:</Typography>
+                    <Typography variant='h6'>Should be the facilitator in the next daily:</Typography>
                     <Typography variant='h4'>{loser.name}</Typography>
                 </Box>
             }

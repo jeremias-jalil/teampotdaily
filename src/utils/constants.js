@@ -4,12 +4,15 @@ import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat'
 import EmojiFoodBeverageIcon from '@mui/icons-material/EmojiFoodBeverage'
 import LocalDrinkIcon from '@mui/icons-material/LocalDrink'
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment'
+import HeartBrokenIcon from '@mui/icons-material/HeartBroken';
 import teapot1inf from '../images/teapot1inf.gif'
 import teapot2inf from '../images/teapot2inf.gif'
 import teapot3inf from '../images/teapot3inf.gif'
 import teapot4inf from '../images/teapot4inf.gif'
 import teapot5inf from '../images/teapot5inf.gif'
 import teapot6inf from '../images/teapot6inf.gif'
+import teapot7infSs from '../images/teapot7infSs.gif'
+
 
 export const setTimeMarks = [
     {
@@ -32,7 +35,8 @@ export const backgroundColorTimeLimit = {
     3: "#8d0000",
     4: "#bd000057",
     5: "#e60000a4",
-    6: "#ff0000"
+    6: "#ff0000",
+    7: "#ff0000"
 }
 
 export const colorTimeLimitReference = {
@@ -41,11 +45,12 @@ export const colorTimeLimitReference = {
     3: "success",
     4: "info",
     5: "warning",
-    6: "error"
+    6: "error",
+    7: "error",
 }
 
 export const colorGalery = [
-    "#4b382",
+    "#4b382c",
     "#826B59",
     "#ABA08A",
     "#653310",
@@ -69,6 +74,7 @@ export const emojiTimeLimit = {
     4: "🌡️​​",
     5: "♨️",
     6: "🔥",
+    7: "💥"
 }
 
 export const iconTimeLimit = {
@@ -77,7 +83,8 @@ export const iconTimeLimit = {
     3: <EmojiFoodBeverageIcon/>,
     4: <DeviceThermostatIcon/>,
     5: <BubbleChartIcon/>,
-    6: <LocalFireDepartmentIcon/>
+    6: <LocalFireDepartmentIcon/>,
+    7: <HeartBrokenIcon/>
 }
 
 export const teapotTimeLimit = {
@@ -86,5 +93,13 @@ export const teapotTimeLimit = {
     3: teapot3inf,
     4: teapot4inf,
     5: teapot5inf,
-    6: teapot6inf
+    6: teapot6inf,
+    7:teapot7infSs
 }
+
+export const facilitatorModeValues = {
+    hotest:"Hotest",
+    random:"Randomly",
+    noSelect:"No Select"
+}
+    

@@ -9,7 +9,7 @@ export default function ImputTime() {
     const { cont, timeLimit, updateTimeLimit } = useAppContext()
 
     return (
-        <FormControl fullWidth sx={{ m: 1, width: 300 }} disabled={cont >= 1}>
+        <FormControl fullWidth sx={{ m: 1, width: "80%" }} disabled={cont >= 1}>
 
             <Typography id="input-slider" gutterBottom style={{ color: getTextColor(cont >= 1) }}>
                 Set daily individual time:
