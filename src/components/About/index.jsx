@@ -83,21 +83,14 @@ export default function About() {
           should be the one to put TeamPot in the next meeting.
           </Typography>
           <Typography gutterBottom>
-            <b>Developed by:</b> Jeremias J. E. Jalil
+            <b>Developed by:</b> <a href="https://www.linkedin.com/in/jeremiasjalil/" target="_blank" rel="noreferrer">Jeremías J. E. Jalil</a>
           </Typography>
           <Typography gutterBottom>
-            <b> Version:</b>: 0.1
+            <b> Version:</b>: 1.0
           </Typography>
           <Typography gutterBottom>
-            <b>Team</b>: "Contactabilidad - Santander Tecnología"
-          </Typography>
-          <Typography gutterBottom>
-            <a href="https://gitlab.ar.bsch/citas/teampot-daily/teampot-daily" target="_blank" rel="noreferrer">Link GitLab repository</a>
+            <a href="https://github.com/jeremias-jalil/teampotdaily" target="_blank" rel="noreferrer">Link GitHub repository</a>
             </Typography>
-            <Typography gutterBottom>
-            <a href="https://santander-tecno-ar.slack.com/archives/C03KYAJ5AFK" target="_blank" rel="noreferrer">Slack</a>
-
-          </Typography>
         </DialogContent>
       </BootstrapDialog>
     </div>
