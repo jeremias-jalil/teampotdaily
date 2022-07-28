@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
 import { backgroundColorTimeLimit, colorGalery, facilitatorModeValues } from "../utils/constants";
+import { timeFormat } from "../utils/genericFunction";
+
 
 const appContext = createContext()
 
@@ -101,6 +103,10 @@ export function AppContextProvider({ children }) {
     const handleSpinClick = (skip, winnerNumber) => {
         setSpinnerOn(true)
         pause()
+        window.dataLayer.push({
+            'event':'userTime',
+            'userTime': timeLimitStep,
+        });
         const newSpinnData = [...spinnData]
         if (cont) {
             const user = newSpinnData.splice(prizeNumber, 1)
@@ -139,6 +145,13 @@ export function AppContextProvider({ children }) {
         const newSpinnData = [...spinnData]
         const user = newSpinnData.splice(prizeNumber, 1)
         const newDailyList = [{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList]
+        window.dataLayer.push({
+            'event':'dailyData',
+            'totalTime': `${timeFormat(minutesTotal)}:${timeFormat(secondsTotal)}`,
+            'selectMode': `${facilitatorMode}`, 
+            'dailySetTime': `${timeLimit}`, 
+            'teamMembers': `${newDailyList.length}`,
+        });
         let newLoser = {}
         switch (facilitatorMode) {
             case facilitatorModeValues.hotest:

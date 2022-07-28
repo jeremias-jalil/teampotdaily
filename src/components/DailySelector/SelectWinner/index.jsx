@@ -8,10 +8,11 @@ import { getTextColor } from "../../../utils/genericFunction";
 
 
 export default function SelectWinner({ setNewWinner, newWinner }) {
-    const { cont, isRunning, spinnerOn, selectList, handleSpinClick } = useAppContext()
+    const { cont, isRunning, spinnerOn, selectList, handleSpinClick, startTotal } = useAppContext()
 
 
     const handleNewWinner = (event) => {
+        if (!cont) startTotal()
         handleSpinClick(false, event.target.value)
         setNewWinner(event.target.value);
     };
