@@ -22,3 +22,29 @@ export const timeLimitStepFunction = (
 export const getTextColor = (condition) => {
   return condition ? "rgba(0, 0, 0, 0.38)" : "white"
 }
+
+export function getRandomInt(index) {       
+  var byteArray = new Uint8Array(1);
+  window.crypto.getRandomValues(byteArray);
+
+  var range = index + 1;
+  var max_range = 256;
+  if (byteArray[0] >= Math.floor(max_range / range) * range)
+      return getRandomInt(index);
+  return (byteArray[0] % range);
+}
+
+export function getSpinnTextColor(hex) {
+  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if(result){
+    const r = parseInt(result[1], 16)
+    const g = parseInt(result[2], 16)
+    const b = parseInt(result[3], 16)
+    if ( r * 0.299 + g * 0.587 + b * 0.114 > 186 ) {
+      return 'black';
+    } else {
+      return 'white';
+    }
+  }
+  return 'black';
+}

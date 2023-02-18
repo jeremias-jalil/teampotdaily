@@ -5,16 +5,26 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Popover from '@mui/material/Popover';
 import Select from '@mui/material/Select';
+import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 import * as React from 'react';
 import { useAppContext } from '../../../context/context';
 import { FacilitatorModeContainer } from '../../../style/Mui-Style';
 import { facilitatorModeValues } from '../../../utils/constants';
 
-
-
 export default function FacilitatorSelectMode() {
-  const { cont, facilitatorMode, setMacilitatorMode } = useAppContext()
+  const { cont, facilitatorMode, setMacilitatorMode, setEmojis } = useAppContext()
+
+  React.useEffect(() => {
+    if (localStorage.getItem("settings")) {
+      const settings = JSON.parse(localStorage.getItem("settings"))
+      setMacilitatorMode(settings.facilitatorMode)
+    }
+  }, [])
+
+
 
   const handleChange = (event) => {
     setMacilitatorMode(event.target.value);
@@ -38,8 +48,8 @@ export default function FacilitatorSelectMode() {
       <IconButton aria-describedby={id} variant="contained" onClick={handleClick}>
         <HelpIcon />
       </IconButton>
-      <FormControl fullWidth disabled={cont}>
-        <InputLabel id="facilitator-select-mode">Facilitator select mode</InputLabel>
+      <FormControl fullWidth disabled={!!cont}>
+        <InputLabel id="facilitator-select-mode">Modo de selección del próximo facilitador</InputLabel>
         <Select
           labelId="facilitator-select-mode"
           id="facilitator-select"
@@ -63,15 +73,21 @@ export default function FacilitatorSelectMode() {
         }}
       >
         <Typography sx={{ p: 2 }}>
-          <b> Facilitator select mode</b>  <br />
-          <b>Hotest:</b>  The next facilitator will be the one with the highest time.
+          <b>Modo de selección del proximo facilitador</b>  <br />
+          <b>Mayor tiempo:</b>  El próximo facilitador es el que más tiempo tardó en la daily.
           <br />
-          <b>Random: </b> The next facilitator will be randomly selected.
+          <b>Aleatorio: </b> El próximo facilitador es seleccionado de forma aleatoria.
           <br />
-          <b> No Select: </b> The next facilitator will not be selected.
+          <b>No seleccionar: </b> No se selecciona el próximo facilitador.
 
         </Typography>
       </Popover>
+      <FormControlLabel
+        control={<Switch color="primary" onChange={(e) => setEmojis(e.target.checked)} />}
+        label="Emojis"
+        labelPlacement="top"
+        disabled={!!cont}
+      />
     </FacilitatorModeContainer>
   );
 }

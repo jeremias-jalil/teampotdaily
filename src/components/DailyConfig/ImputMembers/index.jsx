@@ -19,13 +19,13 @@ export default function ImputMembers({ teamMembers, setTeamMembers }) {
     }, [])
 
     const getTotalTeamMembers = () => {
-        return `${teamMembers.split('\n').filter((e) => e !== "").length} team asistent`
+        return `${teamMembers.split('\n').filter((e) => e !== "").length} asistentes`
     }
 
     return (
         <>
             <TextField
-                label="List your team members"
+                label="Listado de integrantes de la daily"
                 multiline
                 rows={row}
                 value={teamMembers}

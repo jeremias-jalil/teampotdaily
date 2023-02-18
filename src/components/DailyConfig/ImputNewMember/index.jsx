@@ -1,10 +1,9 @@
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { useState } from 'react';
 import { useAppContext } from '../../../context/context';
+import { ImputNewMemberContainer } from '../../../style/Mui-Style';
 import { getTextColor } from "../../../utils/genericFunction";
-import {ImputNewMemberContainer} from '../../../style/Mui-Style';
 
 
 export default function ImputNewMember({ teamMembers, setTeamMembers }) {
@@ -19,12 +18,12 @@ export default function ImputNewMember({ teamMembers, setTeamMembers }) {
     return (
         <ImputNewMemberContainer >
             <TextField
-                label="Name"
+                label="Nombre"
                 value={nameTeam}
                 onChange={(e) => setNameTeam(e.target.value)}
                 variant="filled"
                 style={{ width: "100%" }}
-                helperText={<p style={{ color: getTextColor(!isRunning) }} >'Pause the timer to add a new member'</p>}
+                helperText={<p style={{ color: getTextColor(!isRunning) }} >Pausar para agregar un nuevo integrante</p>}
                 disabled={spinnerOn || isRunning || !cont}
 
             />
@@ -33,7 +32,7 @@ export default function ImputNewMember({ teamMembers, setTeamMembers }) {
                 onClick={handleAddMember}
                 disabled={spinnerOn || (isRunning && cont !== 0) || nameTeam === ""}
             >
-                Add member
+                Agregar integrante
             </Button>
         </ImputNewMemberContainer>
 

@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useAppContext } from '../../context/context';
 import LogoTeamPot from '../../images/LogoTeamPot.png';
+
+
 import SelectWinner from './SelectWinner';
 import Spinner from './Spinner';
 
@@ -16,8 +18,12 @@ export default function DailySelector() {
                     <img src={LogoTeamPot} style={{ width: "40%" }} alt="logo" />
                     <Spinner setNewWinner={setNewWinner} />
                     <SelectWinner setNewWinner={setNewWinner} newWinner={newWinner} />
+                    
                 </> :
+                <>
                 <img src={LogoTeamPot} style={{ width: "100%" }} alt="logo" />
+
+                </>
             }
         </>
 

@@ -20,7 +20,11 @@ export default function TeapotGif() {
             {teamAsistent.length > 1 ? <img src={imgSrc} alt="teapot" style={{ width: "70%" }} /> :
                 <>
                     <img src={teapot} alt="teapot" style={{ width: "90%" }} />
-                    <Typography variant='h6'>Add your team members name, set the time limit and press "Set Daily" to let the meeting begin</Typography>
+                    <Typography variant='h5'>
+                    Agrega a todos los integrantes, <br /> 
+                    configura el tiempo por persona <br />
+                    la forma de seleccionar al próximo facilitador <br />
+                    y que comience la daily.</Typography>
                 </>}
         </Box>
     )

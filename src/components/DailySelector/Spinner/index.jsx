@@ -9,7 +9,6 @@ export default function Spinner({ setNewWinner }) {
         updateWinner(spinnData[prizeNumber].option)
         setNewWinner("");
     }
-
     return (
         <SpinnerContainer>
         <Wheel
@@ -21,10 +20,14 @@ export default function Spinner({ setNewWinner }) {
             outerBorderWidth={0}
             radiusLineColor="Gold"
             radiusLineWidth={1}
+            innerRadius={4}
+            innerBorderColor="#BAC1C7"
+            innerBorderWidth={70}
             perpendicularText={false}
-            textDistance={80}
+            textDistance={75}
             spinDuration={spinnData.length === 1 ? 0.0 : 0.3}
         />
+          
         </SpinnerContainer>
     )
 }

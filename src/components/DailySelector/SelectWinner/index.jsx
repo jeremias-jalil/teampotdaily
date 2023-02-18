@@ -8,7 +8,7 @@ import { getTextColor } from "../../../utils/genericFunction";
 
 
 export default function SelectWinner({ setNewWinner, newWinner }) {
-    const { cont, isRunning, spinnerOn, selectList, handleSpinClick, startTotal } = useAppContext()
+   const { cont, isRunning, spinnerOn, selectList, handleSpinClick,startTotal } = useAppContext()
 
 
     const handleNewWinner = (event) => {
@@ -18,7 +18,7 @@ export default function SelectWinner({ setNewWinner, newWinner }) {
     };
     return (
         <FormControl fullWidth sx={{ m: 1, width: 300 }} disabled={isRunning || spinnerOn}>
-            <InputLabel id="select-label">Team member</InputLabel>
+            <InputLabel id="select-label">Integrante</InputLabel>
             <Select
                 labelId="select-label"
                 id="select"
@@ -31,7 +31,7 @@ export default function SelectWinner({ setNewWinner, newWinner }) {
             )}
             </Select>
             <FormHelperText style={{ color: getTextColor((!isRunning || spinnerOn) && cont) }}>
-                If necessary, after pausing, you can select the next one here.
+                Si es necesario, luego de pausar, puedes seleccionar el siguiente. 
             </FormHelperText>
         </FormControl>
     )
