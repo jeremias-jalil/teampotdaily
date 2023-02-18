@@ -1,13 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useStopwatch } from 'react-timer-hook';
-import { backgroundColorTimeLimit, colorGalery, facilitatorModeValues } from "../utils/constants";
-import { timeFormat } from "../utils/genericFunction";
-
+import { backgroundColorTimeLimit, colorGalery, facilitatorModeValues, emogiList } from "../utils/constants";
+import { uuid } from 'uuidv4';
+import { timeFormat, getRandomInt, getSpinnTextColor } from "../utils/genericFunction";
 
 const appContext = createContext()
 
 export function AppContextProvider({ children }) {
-    const [teamMembers, setTeamMembers] = useState([])
+    const [teamMembers, setTeamMembers] = useState(0)
     const [teamAsistent, setTeamAsistent] = useState([])
     const [dailyList, setDailyList] = useState([])
     const [winner, setWinner] = useState("")
@@ -23,6 +23,8 @@ export function AppContextProvider({ children }) {
     const [loser, setLoser] = useState({})
     const [selectList, setSelectList] = useState([]);
     const [facilitatorMode, setMacilitatorMode] = useState(facilitatorModeValues.hotest);
+    const [sessionId, setSessionId] = useState('')
+    const [emojis, setEmojis] = useState(false)
 
     const {
         seconds,
@@ -35,38 +37,51 @@ export function AppContextProvider({ children }) {
 
     useEffect(() => {
         setVoice(speechSynthesis.getVoices().find(e => e.lang === "es-ES"))
+
     }, [])
 
     const {
         seconds: secondsTotal,
         minutes: minutesTotal,
+        hours: hoursTotal,
         start: startTotal,
         pause: pauseTotal,
         reset: resetTotal,
     } = useStopwatch({ autoStart: false });
 
-    const updateTeamMembers = (list) => {
-        setTeamMembers(list)
+    const updateTeamMembers = (number) => {
+        setTeamMembers(number)
     }
+
+
 
     const updateTeamAsistent = (data) => {
         resetTotal()
         pauseTotal()
         const list = data.split('\n').filter((e) => e !== "")
+        list.sort(function () { return Math.random() - 0.5 });
         let randomColor
         const formatDataSpinn = list.map(e => {
-            const randomColorNumber = Math.floor(Math.random() * (colorGalery.length - 1))
+            const randomColorNumber = getRandomInt(colorGalery.length - 1)
+            if (emojis) {
+                const randomIcon = getRandomInt(emogiList.length - 1)
+                e = e + emogiList[randomIcon]
+            }
+
             let newRandomColor = colorGalery[randomColorNumber]
             while (newRandomColor === randomColor) {
                 newRandomColor = colorGalery[randomColorNumber + 1]
             }
             randomColor = newRandomColor
-            return { option: e, style: { backgroundColor: randomColor } }
+            return { option: e, style: { backgroundColor: randomColor, textColor: getSpinnTextColor(randomColor) } }
         })
         setSpinnData(formatDataSpinn)
         setSelectList(formatDataSpinn)
         setTeamAsistent(list)
+        setSessionId(uuid())
         localStorage.setItem("teampot", data)
+        localStorage.setItem("settings", JSON.stringify({ timeLimit, facilitatorMode }))
+
     }
 
     const updateDailyList = (list) => {
@@ -74,6 +89,12 @@ export function AppContextProvider({ children }) {
     }
 
     const updateWinner = (name) => {
+        window.dataLayer.push({
+            'event': 'userPosition',
+            "sessionId": sessionId,
+            'userName': name,
+            'position': cont
+        });
         reset(undefined, true)
         let mensaje = new SpeechSynthesisUtterance();
         mensaje.voice = voice;
@@ -89,7 +110,6 @@ export function AppContextProvider({ children }) {
         updateTimeLimitStep(1)
         setSpinnerOn(false)
         setMustSpin(false)
-
     }
 
     const updateTimeLimit = (time) => {
@@ -104,7 +124,8 @@ export function AppContextProvider({ children }) {
         setSpinnerOn(true)
         pause()
         window.dataLayer.push({
-            'event':'userTime',
+            'event': 'userTime',
+            "sessionId": sessionId,
             'userTime': timeLimitStep,
         });
         const newSpinnData = [...spinnData]
@@ -114,7 +135,7 @@ export function AppContextProvider({ children }) {
                 updateDailyList([{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList])
             }
         }
-        const newPrizeNumber = winnerNumber ?? Math.floor(Math.random() * newSpinnData.length)
+        const newPrizeNumber = winnerNumber ?? getRandomInt(newSpinnData.length - 1)
         setPrizeNumber(newPrizeNumber)
         setMustSpin(true)
         setSpinnData(newSpinnData)
@@ -133,33 +154,45 @@ export function AppContextProvider({ children }) {
 
     const addNewMember = (name) => {
         var randomColor = colorGalery[Math.floor(Math.random() * 15)]
+        if (emojis) {
+            const randomIcon = getRandomInt(emogiList.length - 1)
+            name = name + emogiList[randomIcon]
+        }
         setTeamAsistent([...teamAsistent, name])
         setSpinnData([...spinnData, { option: name, style: { backgroundColor: randomColor } }])
         setSelectList([...selectList, { option: name, style: { backgroundColor: randomColor } }])
     }
 
 
-    const finish = () => {
+    const finish = (skip) => {
         pause()
         pauseTotal()
         const newSpinnData = [...spinnData]
         const user = newSpinnData.splice(prizeNumber, 1)
-        const newDailyList = [{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList]
+        let newDailyList = [...dailyList]
+        if (!skip) {
+            newDailyList = [{ name: user[0].option, minutes: minutes, seconds: seconds, timeLimitStep: timeLimitStep }, ...dailyList]
+        }
         window.dataLayer.push({
-            'event':'dailyData',
+            'event': 'dailyData',
+            "sessionId": sessionId,
             'totalTime': `${timeFormat(minutesTotal)}:${timeFormat(secondsTotal)}`,
-            'selectMode': `${facilitatorMode}`, 
-            'dailySetTime': `${timeLimit}`, 
+            'selectMode': `${facilitatorMode}`,
+            'dailySetTime': `${timeLimit}`,
             'teamMembers': `${newDailyList.length}`,
         });
         let newLoser = {}
+        const sortDailyList = newDailyList.sort((a, b) => (b.seconds + b.minutes * 60) - (a.seconds + a.minutes * 60))
         switch (facilitatorMode) {
             case facilitatorModeValues.hotest:
-                newLoser = newDailyList.sort((a, b) => (b.seconds + b.minutes * 60) - (a.seconds + a.minutes * 60))[0]
+                const listLoser = sortDailyList
+                newLoser.l1 = listLoser[0]
+                newLoser.l2 = listLoser[1]
                 break;
             case facilitatorModeValues.random:
-
-                newLoser = [...newDailyList].splice(Math.floor(Math.random() * newDailyList.length), 1)[0]
+                const loserList = [...newDailyList]
+                newLoser.l1 = loserList.splice(getRandomInt(loserList.length - 1), 1)[0]
+                newLoser.l2 = loserList.splice(getRandomInt(loserList.length - 1), 1)[0]
                 break;
             case facilitatorModeValues.noSelect:
                 newLoser = {}
@@ -168,7 +201,7 @@ export function AppContextProvider({ children }) {
                 newLoser = {}
                 break;
         }
-        updateDailyList(newDailyList.sort((a, b) => (b.seconds + b.minutes * 60) - (a.seconds + a.minutes * 60)))
+        updateDailyList(sortDailyList)
         setLoser(newLoser)
         reset()
         pause()
@@ -208,6 +241,7 @@ export function AppContextProvider({ children }) {
         timeLimit,
         secondsTotal,
         minutesTotal,
+        hoursTotal,
         results,
         spinnerOn,
         loser,
@@ -233,7 +267,9 @@ export function AppContextProvider({ children }) {
         setlResults,
         finish,
         setSpinnerOn,
-        setMacilitatorMode
+        setMacilitatorMode,
+        setEmojis
+
     }
 
     return (

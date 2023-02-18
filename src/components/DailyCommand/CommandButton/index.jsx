@@ -25,33 +25,46 @@ export default function CommandButton() {
         <Box>
             {spinnData.length > 1 ?
                 <>
-                    <Button variant="contained"
+                    <Button
+                        id={cont ? "next" : "start"}
+                        variant="contained"
                         onClick={handleNext}
                         disabled={spinnerOn || (!isRunning && cont !== 0)}>
-                        {cont ? "Next" : "Start"}
+                        {cont ? "Siguiente" : "Comenzar"}
                     </Button>
                     {winner && <Button
+                        id="skip"
                         variant="contained"
                         onClick={handleSkip}
                         disabled={spinnerOn || (!isRunning && cont !== 0)}>
-                        Skip
+                        Omitir
                     </Button>}
                 </>
                 :
                 winner &&
-                <Button
-                    variant="contained"
-                    onClick={finish}
-                    disabled={spinnerOn || (!isRunning && cont !== 0)}>
-                    Finish
-                </Button>
+                <>
+                        <Button
+                        id="finish"
+                        variant="contained"
+                        onClick={()=>finish(false)}
+                        disabled={spinnerOn || (!isRunning && cont !== 0)}>
+                        Finalizar
+                    </Button>
+                    <Button
+                        id="skip"
+                        variant="contained"
+                        onClick={()=>finish(true)}
+                        disabled={spinnerOn || (!isRunning && cont !== 0)}>
+                        Omitir y finalizar
+                    </Button>
+                </>
             }
             {winner &&
                 <Button
                     variant="contained"
                     onClick={!isRunning ? handleStart : handlePause}
                     disabled={spinnerOn}>
-                    {!isRunning ? "Continue" : "Pause"}
+                    {isRunning || spinnerOn ? "Pausa" : "Continuar"}
                 </Button>
 
             }

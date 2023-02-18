@@ -64,7 +64,41 @@ export const colorGalery = [
     "#B8D094",
     "#4C6174",
     "#8193A1",
-    "#A3ACBA"
+    "#A3ACBA",
+    "#676B43",
+    "#2B4B40",
+    "#A3C1AD",
+    "#B4A7D6",
+    "#D1C4E9",
+    "#E8DAEF",
+    "#F2EBF7",
+    "#FFF8DC",
+    "#FFEBCD",
+    "#FFE4C4",
+    "#FFDEAD",
+    "#F5DEB3",
+    "#DEB887",
+    "#D2B48C",
+    "#BC8F8F",
+    "#F4A460",
+    "#DAA520",
+    "#B8860B",
+    "#CD853F",
+    "#D2691E",
+    "#8B4513",
+    "#A0522D",
+    "#A52A2A",
+    "#800000",
+    "#9ACD32",
+    "#6B8E23",
+    "#808000",
+    "#556B2F",
+    "#CD5C5C",
+    "#F08080",
+    "#FA8072",
+    "#E9967A",
+    "#FFA07A",
+
 ]
 
 export const emojiTimeLimit = {
@@ -78,13 +112,13 @@ export const emojiTimeLimit = {
 }
 
 export const iconTimeLimit = {
-    1: <AcUnitIcon/>,
-    2: <LocalDrinkIcon/>,
-    3: <EmojiFoodBeverageIcon/>,
-    4: <DeviceThermostatIcon/>,
-    5: <BubbleChartIcon/>,
-    6: <LocalFireDepartmentIcon/>,
-    7: <HeartBrokenIcon/>
+    1: <AcUnitIcon />,
+    2: <LocalDrinkIcon />,
+    3: <EmojiFoodBeverageIcon />,
+    4: <DeviceThermostatIcon />,
+    5: <BubbleChartIcon />,
+    6: <LocalFireDepartmentIcon />,
+    7: <HeartBrokenIcon />
 }
 
 export const teapotTimeLimit = {
@@ -94,12 +128,19 @@ export const teapotTimeLimit = {
     4: teapot4inf,
     5: teapot5inf,
     6: teapot6inf,
-    7:teapot7infSs
+    7: teapot7infSs
 }
 
 export const facilitatorModeValues = {
-    hotest:"Hotest",
-    random:"Randomly",
-    noSelect:"No Select"
+    hotest: "Mayor tiempo",
+    random: "Aleatorio",
+    noSelect: "No Seleccionar"
 }
-    
+
+export const emogiList = [" 😀", " 😃", " 😄", " 😁", " 😆", " 😅",
+    " 😂", " 🤣", " 😇", " 😉", " 😊", " 🙂", " 🙃", " 😋", " 😌",
+    " 😍", " 🥰", " 😘", " 😚", " 🤪", " 😜", " 😛", " 🤑",
+    " 😎", " 🤓", " 🧐", " 🤠", " 🥳", " 🤡", " 😏", " 😐",
+    " 😑", " 🙄", " 🤨", " 🤔", " 🤭 ", " 🤗", " 😳 ", " 😬", " 🥺",
+    " 😪", " 😮", " 😱", " 😨", " 🤤", " 🤩", " 😵", " 🥴", " 😲",
+    " 🤯", " 🥵", " 🥶", " 😴"]

@@ -11,24 +11,26 @@ export default function SetButton({ teamMembers }) {
         <>
             {cont === 0 ?
                 <Button
+                    id="set"
                     variant="contained"
                     onClick={() => updateTeamAsistent(teamMembers)}
                     disabled={spinnerOn || (!isRunning && cont !== 0)}
                     fullWidth
                 >
-                    Set daily
+                    Iniciar daily
                 </Button> :
                 <Box style={{width:"100%"}}>
                     <Button
+                        id="reset"
                         variant="contained"
                         onClick={resetAll}
                         disabled={spinnerOn || (isRunning && cont !== 0)}
                         fullWidth
                     >
-                        Reset
+                        Restaurar
                     </Button>
                     <Typography style={{ color: getTextColor(!isRunning), marginTop: "5px" }}>
-                        Pause the timer to reset
+                        Pausar para restaurar
                     </Typography>
                 </Box>
             }

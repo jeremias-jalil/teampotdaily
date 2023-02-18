@@ -10,14 +10,15 @@ export default function WinnerTimer() {
         <>
             {winner && <>
                 <Typography variant='h2'>
-                    Time {timeFormat(minutes)}:{timeFormat(seconds)}
+                    Tiempo {timeFormat(minutes)}:{timeFormat(seconds)}
                 </Typography>
             </>}
-            {loser.name &&
+            {loser.l1 &&
                 <Box>
-                    <Typography variant='h6'>Should be the facilitator in the next daily:</Typography>
-                    <Typography variant='h4'>{loser.name}</Typography>
-                </Box>
+                    <Typography variant='h6'>Debería ser el facilitador de la próxima daily</Typography>
+                    <Typography variant='h4'>Titular: <b>{loser.l1?.name}</b></Typography>
+                    <Typography variant='h4'>Suplente: <b>{loser.l2?.name}</b></Typography>
+               </Box>
             }
         </>
     )

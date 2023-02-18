@@ -4,17 +4,23 @@ import Typography from '@mui/material/Typography';
 import { useAppContext } from '../../../context/context';
 import { setTimeMarks } from "../../../utils/constants";
 import { getTextColor } from "../../../utils/genericFunction";
+import { useEffect } from 'react';
 
 export default function ImputTime() {
     const { cont, timeLimit, updateTimeLimit } = useAppContext()
 
+    useEffect(() => {
+        if (localStorage.getItem("settings")) {
+            const settings = JSON.parse(localStorage.getItem("settings"))
+            updateTimeLimit(settings.timeLimit)
+        }
+    }, [])
+
     return (
         <FormControl fullWidth sx={{ m: 1, width: "80%" }} disabled={cont >= 1}>
-
             <Typography id="input-slider" gutterBottom style={{ color: getTextColor(cont >= 1) }}>
-                Set daily individual time:
+                Tiempo de daily por integrante
             </Typography>
-
             <Slider
                 aria-labelledby="input-slider"
                 defaultValue={2}
