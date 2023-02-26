@@ -1,33 +1,29 @@
 import { Wheel } from 'react-custom-roulette';
 import { useAppContext } from '../../../context/context';
-import {SpinnerContainer} from '../../../style/Mui-Style';
+import { SpinnerContainer } from '../../../style/Mui-Style';
 
 export default function Spinner({ setNewWinner }) {
-    const { spinnData, prizeNumber, mustSpin, updateWinner } = useAppContext()
+  const { spinnData, prizeNumber, mustSpin, updateWinner } = useAppContext();
 
-    const handleWinner = () => {
-        updateWinner(spinnData[prizeNumber].option)
-        setNewWinner("");
-    }
-    return (
-        <SpinnerContainer>
-        <Wheel
-            mustStartSpinning={mustSpin}
-            prizeNumber={prizeNumber}
-            data={spinnData}
-            onStopSpinning={handleWinner}
-            outerBorderColor="Gold"
-            outerBorderWidth={0}
-            radiusLineColor="Gold"
-            radiusLineWidth={1}
-            innerRadius={4}
-            innerBorderColor="#BAC1C7"
-            innerBorderWidth={70}
-            perpendicularText={false}
-            textDistance={75}
-            spinDuration={spinnData.length === 1 ? 0.0 : 0.3}
-        />
-          
-        </SpinnerContainer>
-    )
+  const handleWinner = () => {
+    updateWinner(spinnData[prizeNumber].option);
+    setNewWinner('');
+  };
+  return (
+    <SpinnerContainer>
+      <Wheel
+        mustStartSpinning={mustSpin}
+        prizeNumber={prizeNumber}
+        data={spinnData}
+        onStopSpinning={handleWinner}
+        outerBorderColor='Gold'
+        outerBorderWidth={0}
+        radiusLineColor='Gold'
+        radiusLineWidth={1}
+        perpendicularText={false}
+        textDistance={75}
+        spinDuration={spinnData.length === 1 ? 0.0 : 0.3}
+      />
+    </SpinnerContainer>
+  );
 }

@@ -3,17 +3,29 @@ import { useAppContext } from '../../../context/context';
 import { timeFormat } from '../../../utils/genericFunction';
 
 export default function TotalDailyTime() {
-    const { winner, spinnerOn, minutesTotal, secondsTotal, teamAsistent,hoursTotal, timeLimit } = useAppContext();
+  const {
+    winner,
+    settings,
+    spinnerOn,
+    minutesTotal,
+    secondsTotal,
+    teamAsistent,
+    hoursTotal,
+  } = useAppContext();
 
-    const getTotalTime = (condition) => {
-        return `${condition ? 'de ' + timeFormat(teamAsistent.length * timeLimit) + ':00' : ''}`
-    }
+  const getTotalTime = (condition) => {
+    return `${
+      condition
+        ? 'from ' + timeFormat(teamAsistent.length * settings.timeLimit) + ':00'
+        : ''
+    }`;
+  };
 
-    return (
-        <Typography variant='h6'>
-            {
-                `Tiempo total de la Daily: ${timeFormat(minutesTotal+(hoursTotal*60))}:${timeFormat(secondsTotal)} ${getTotalTime(!winner && !spinnerOn)}`
-            }
-        </Typography>
-    )
+  return (
+    <Typography variant='h6'>
+      {`Daily total time: ${timeFormat(
+        minutesTotal + hoursTotal * 60
+      )}:${timeFormat(secondsTotal)} ${getTotalTime(!winner && !spinnerOn)}`}
+    </Typography>
+  );
 }
