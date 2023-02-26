@@ -9,28 +9,41 @@ import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-import * as React from 'react';
+import { useState, useEffect } from 'react';
 import { useAppContext } from '../../../context/context';
 import { FacilitatorModeContainer } from '../../../style/Mui-Style';
 import { facilitatorModeValues } from '../../../utils/constants';
 
 export default function FacilitatorSelectMode() {
-  const { cont, facilitatorMode, setMacilitatorMode, setEmojis } = useAppContext()
-
-  React.useEffect(() => {
-    if (localStorage.getItem("settings")) {
-      const settings = JSON.parse(localStorage.getItem("settings"))
-      setMacilitatorMode(settings.facilitatorMode)
-    }
-  }, [])
-
-
+  const {
+    cont,
+    settings,
+    updateFacilitatorMode,
+    updateEmojis,
+    updateVoiceLanguage,
+  } = useAppContext();
 
   const handleChange = (event) => {
-    setMacilitatorMode(event.target.value);
+    updateFacilitatorMode(event.target.value);
   };
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleVoiceLanguage = (event) => {
+    updateVoiceLanguage(event.target.value);
+  };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [voiceList, setVoiceList] = useState([settings.voiceLanguage]);
+
+  const getVoices = async () => {
+    setTimeout(() => {
+      const voices = speechSynthesis.getVoices();
+      setVoiceList(voices);
+    }, 30);
+  };
+
+  useEffect(() => {
+    getVoices();
+  }, [speechSynthesis]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -44,21 +57,27 @@ export default function FacilitatorSelectMode() {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <FacilitatorModeContainer >
-      <IconButton aria-describedby={id} variant="contained" onClick={handleClick}>
+    <FacilitatorModeContainer>
+      <IconButton
+        aria-describedby={id}
+        variant='contained'
+        onClick={handleClick}
+      >
         <HelpIcon />
       </IconButton>
-      <FormControl fullWidth disabled={!!cont}>
-        <InputLabel id="facilitator-select-mode">Modo de selección del próximo facilitador</InputLabel>
+      <FormControl disabled={!!cont} fullWidth>
+        <InputLabel id='facilitator-select-mode'>Facilitator mode</InputLabel>
         <Select
-          labelId="facilitator-select-mode"
-          id="facilitator-select"
-          value={facilitatorMode}
-          label="Facilitator select mode"
+          labelId='facilitator-select-mode'
+          id='facilitator-select'
+          value={settings.facilitatorMode}
+          label='Facilitator select mode'
           onChange={handleChange}
         >
           {Object.values(facilitatorModeValues).map((item, index) => (
-            <MenuItem key={index} value={item}>{item}</MenuItem>
+            <MenuItem key={index} value={item}>
+              {item}
+            </MenuItem>
           ))}
         </Select>
       </FormControl>
@@ -73,19 +92,39 @@ export default function FacilitatorSelectMode() {
         }}
       >
         <Typography sx={{ p: 2 }}>
-          <b>Modo de selección del proximo facilitador</b>  <br />
-          <b>Mayor tiempo:</b>  El próximo facilitador es el que más tiempo tardó en la daily.
-          <br />
-          <b>Aleatorio: </b> El próximo facilitador es seleccionado de forma aleatoria.
-          <br />
-          <b>No seleccionar: </b> No se selecciona el próximo facilitador.
-
+          <b>Selection mode for the next facilitator</b> <br />
+          <b>Hotest:</b> The next facilitator is the person who took the longest
+          time in the daily. <br />
+          <b>Random:</b> The next facilitator is selected randomly. <br />
+          <b>No selection:</b> The next facilitator is not selected.
         </Typography>
       </Popover>
+      <FormControl disabled={!!cont} fullWidth>
+        <InputLabel id='facilitator-select-mode'>Voice language</InputLabel>
+        <Select
+          labelId='Voice-language'
+          id='Voice-language'
+          value={settings.voiceLanguage}
+          label='Voice language'
+          onChange={handleVoiceLanguage}
+        >
+          {voiceList.map((item, index) => (
+            <MenuItem key={index} value={item.voiceURI}>
+              {item.voiceURI}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <FormControlLabel
-        control={<Switch color="primary" onChange={(e) => setEmojis(e.target.checked)} />}
-        label="Emojis"
-        labelPlacement="top"
+        control={
+          <Switch
+            checked={settings.emojis}
+            color='primary'
+            onChange={(e) => updateEmojis(e.target.checked)}
+          />
+        }
+        label='Emojis'
+        labelPlacement='top'
         disabled={!!cont}
       />
     </FacilitatorModeContainer>

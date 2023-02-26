@@ -97,4 +97,5 @@ a:-webkit-any-link {
 
 .MuiSelect-select {
   color: white !important;
+  max-width: 100px;
 }

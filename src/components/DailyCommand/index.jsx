@@ -7,28 +7,27 @@ import TotalDailyTime from './TotalDailyTime';
 import WinnerTimer from './WinnerTimer';
 
 export default function DailyCommand() {
-  const {
+  const { minutes, seconds, settings, teamAsistent, updateTimeLimitStep } =
+    useAppContext();
+
+  timeLimitStepFunction(
     minutes,
     seconds,
-    timeLimit,
-    teamAsistent,
-    updateTimeLimitStep,
-  } = useAppContext();
-
-  timeLimitStepFunction(minutes, seconds, timeLimit, updateTimeLimitStep)
+    settings.timeLimit,
+    updateTimeLimitStep
+  );
 
   return (
     <>
       <TeapotGif />
-      {teamAsistent.length > 1 &&
+      {teamAsistent.length > 1 && (
         <>
           <WinnerTimer />
           <DailyListperson />
           <TotalDailyTime />
           <CommandButton />
         </>
-      }
+      )}
     </>
-
   );
 }
