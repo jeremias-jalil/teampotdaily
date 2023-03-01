@@ -21,7 +21,7 @@ Animations and color changes based on elapsed time.
 List of final times.
 3 modes of selecting the next facilitator: longest time, random, do not select.
 
-![App](https://firebasestorage.googleapis.com/v0/b/portfolio-jjej.appspot.com/o/public%2FproyectsImage%2FTeamPot%20Daily%2Fteampot.gif?alt=media&token=47898438-5374-4abe-830c-40b13d7dc7dc)
+![](teampot.gif)
 
 
 ## Features
